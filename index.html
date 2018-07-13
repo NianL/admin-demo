@@ -4,20 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="script/element-ui/index.css">
+    <link rel="stylesheet" href="style/layout.css">
     <script src="script/vue.js"></script>
     <script src="script/element-ui/index.js"></script>
 </head>
 
 <body>
     <div id="app">
-        
+        <el-container>
+            <el-header class="header">
+                <h3>admin-demo</h3>
+                <div class="operate">
+                    <span>admin</span>,
+                    <a href="javascript:void(0)">退出系统</a>
+                </div>
+            </el-header>
+            <el-container style="padding-top:60px;">
+                <el-aside width="200px" style="background-color:#343f55;">
+                    <el-menu :default-active="activePage" background-color="#343f55" text-color="#fff" active-text-color="#ffd04b" style="border-right:none;">
+                        <template v-for="(item,index) in menuInfo">
+                            <template v-if="item.children == null || item.children.length == 0">
+                                <el-menu-item :index="item.name" @click="clickMenu(item)">
+                                    <i :class="item.icon"></i>
+                                    <span slot="title" v-text="item.name"></span>
+                                </el-menu-item>
+                            </template>
+                            <template v-else>
+                                <el-submenu :index="item.name">
+                                    <template slot="title">
+                                        <i :class="item.icon"></i>
+                                        <span v-text="item.name"></span>
+                                    </template>
+                                    <el-menu-item :index="chil.name" @click="clickMenu(chil)" :key="index" v-for="(chil,index) in item.children">
+                                        <i :class="chil.icon"></i>
+                                        <span v-text="chil.name"></span>
+                                    </el-menu-item>
+                                </el-submenu>
+                            </template>
+                        </template>
+                    </el-menu>
+                </el-aside>
+                <el-main style="padding:5px;">
+                    <el-tabs v-show="tabsInfo.length>0" v-model="activePage" type="card" closable @tab-remove="removeTab">
+                        <el-tab-pane :key="item.name" v-for="(item, index) in tabsInfo" :label="item.name" :name="item.name">
+                            {{ item.name }}
+                        </el-tab-pane>
+                    </el-tabs>
+                </el-main>
+            </el-container>
+        </el-container>
     </div>
 </body>
 
 <script>
+    //菜单配置文件
+    var MenuData = [{
+            name: "表格数据",
+            icon: "el-icon-document",
+            url: "tables",
+            children: [{
+                    name: "类型1",
+                    url: "page/tables_type1.html",
+                },
+                {
+                    name: "类型2",
+                    url: "page/tables_type2.html",
+                },
+                {
+                    name: "类型3",
+                    url: "page/tables_type3.html",
+                }
+            ]
+        },
+        {
+            name: "设置",
+            icon: "el-icon-setting",
+            url: "page/settings.html",
+            children: null
+        }
+    ];
+</script>
+
+<script>
     new Vue({
         data: function () {
-            return {};
+            return {
+                activePage: "",
+                menuInfo: MenuData,
+                tabsInfo: []
+            };
+        },
+        methods: {
+            clickMenu: function (item) {
+                var temp = {
+                    name: item.name,
+                    url: item.url
+                };
+                var isPush = true;
+                this.tabsInfo.map(function (cur) {
+                    if (cur.name == temp.name) {
+                        isPush = false;
+                        return;
+                    }
+                });
+                if (isPush) this.tabsInfo.push(temp);
+                this.activePage = temp.name;
+            },
+            removeTab: function (targetName) {
+                
+            }
         }
     }).$mount("#app");
 </script>
