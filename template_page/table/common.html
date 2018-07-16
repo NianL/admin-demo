@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../script/element-ui/index.css">
+    <link rel="stylesheet" href="../../style/layout.css">
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/element-ui/index.js"></script>
+    <script src="../../script/config.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <el-table :data="tableData" border stripe size="mini" :header-cell-style="{ background:'#ecf1f5',color:'#495766' }">
+                <el-table-column type="index" label="序号">
+                </el-table-column>
+                <el-table-column prop="date" label="日期" width="180">
+                </el-table-column>
+                <el-table-column prop="name" label="姓名" width="180">
+                </el-table-column>
+                <el-table-column prop="address" label="地址">
+                </el-table-column>
+            </el-table>
+            <template>
+
+            </template>
+        </template>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        data: function () {
+            return {
+                tableData: [, , , , , , , , , , , , , , , , , , , , ],
+            };
+        },
+        methods: {
+
+        }
+    }).$mount("#app");
+</script>
+
+</html>

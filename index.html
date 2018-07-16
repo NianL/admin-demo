@@ -7,90 +7,67 @@
     <link rel="stylesheet" href="style/layout.css">
     <script src="script/vue.js"></script>
     <script src="script/element-ui/index.js"></script>
+    <script src="script/config.js"></script>
 </head>
 
 <body>
     <div id="app">
-        <el-container>
-            <el-header class="header">
-                <h3>admin-demo</h3>
-                <div class="operate">
-                    <span>admin</span>,
-                    <a href="javascript:void(0)">退出系统</a>
-                </div>
-            </el-header>
-            <el-container style="padding-top:60px;">
-                <el-aside width="200px" style="background-color:#343f55;">
-                    <el-menu :default-active="activePage" background-color="#343f55" text-color="#fff" active-text-color="#ffd04b" style="border-right:none;">
-                        <template v-for="(item,index) in menuInfo">
-                            <template v-if="item.children == null || item.children.length == 0">
-                                <el-menu-item :index="item.name" @click="clickMenu(item)">
-                                    <i :class="item.icon"></i>
-                                    <span slot="title" v-text="item.name"></span>
-                                </el-menu-item>
-                            </template>
-                            <template v-else>
-                                <el-submenu :index="item.name">
-                                    <template slot="title">
+        <template>
+            <el-container>
+                <el-header class="header">
+                    <h3>admin-demo</h3>
+                    <div class="operate">
+                        <span>admin</span>,
+                        <a href="javascript:void(0)">退出系统</a>
+                    </div>
+                </el-header>
+                <el-container style="padding-top:60px;">
+                    <el-aside width="200px" style="background-color:#343f55;">
+                        <el-menu :default-active="activePage" background-color="#343f55" text-color="#fff" style="border-right:none;">
+                            <template v-for="(item,index) in menuInfo">
+                                <template v-if="item.children == null || item.children.length == 0">
+                                    <el-menu-item :index="item.name" @click="clickMenu(item)">
                                         <i :class="item.icon"></i>
-                                        <span v-text="item.name"></span>
-                                    </template>
-                                    <el-menu-item :index="chil.name" @click="clickMenu(chil)" :key="index" v-for="(chil,index) in item.children">
-                                        <i :class="chil.icon"></i>
-                                        <span v-text="chil.name"></span>
+                                        <span slot="title" v-text="item.name"></span>
                                     </el-menu-item>
-                                </el-submenu>
+                                </template>
+                                <template v-else>
+                                    <el-submenu :index="item.name">
+                                        <template slot="title">
+                                            <i :class="item.icon"></i>
+                                            <span v-text="item.name"></span>
+                                        </template>
+                                        <el-menu-item :index="chil.name" @click="clickMenu(chil)" :key="index" v-for="(chil,index) in item.children">
+                                            <i :class="chil.icon"></i>
+                                            <span v-text="chil.name"></span>
+                                        </el-menu-item>
+                                    </el-submenu>
+                                </template>
                             </template>
-                        </template>
-                    </el-menu>
-                </el-aside>
-                <el-main style="padding:5px;">
-                    <el-tabs v-show="tabsInfo.length>0" v-model="activePage" type="card" closable @tab-remove="removeTab">
-                        <el-tab-pane :key="item.name" v-for="(item, index) in tabsInfo" :label="item.name" :name="item.name">
-                            {{ item.name }}
-                        </el-tab-pane>
-                    </el-tabs>
-                </el-main>
+                        </el-menu>
+                    </el-aside>
+                    <el-main style="padding:5px;">
+                        <el-tabs v-if="tabsInfo.length>0" v-model="activePage" type="border-card" closable @tab-remove="removeTab" style="height: 100%;">
+                            <el-tab-pane :key="item.name" v-for="(item, index) in tabsInfo" :label="item.name" :name="item.name" style="height: calc(100% - 56px);">
+                                <iframe :src="item.url" style="width: 100%; height: 100%;" frameborder="0"></iframe>
+                            </el-tab-pane>
+                        </el-tabs>
+                        <div v-if="tabsInfo.length==0">
+                            <h1>欢迎使用！</h1>
+                        </div>
+                    </el-main>
+                </el-container>
             </el-container>
-        </el-container>
+        </template>
     </div>
 </body>
-
-<script>
-    //菜单配置文件
-    var MenuData = [{
-            name: "表格数据",
-            icon: "el-icon-document",
-            url: "tables",
-            children: [{
-                    name: "类型1",
-                    url: "page/tables_type1.html",
-                },
-                {
-                    name: "类型2",
-                    url: "page/tables_type2.html",
-                },
-                {
-                    name: "类型3",
-                    url: "page/tables_type3.html",
-                }
-            ]
-        },
-        {
-            name: "设置",
-            icon: "el-icon-setting",
-            url: "page/settings.html",
-            children: null
-        }
-    ];
-</script>
 
 <script>
     new Vue({
         data: function () {
             return {
                 activePage: "",
-                menuInfo: MenuData,
+                menuInfo: Config.menuInfo,
                 tabsInfo: []
             };
         },
@@ -111,7 +88,18 @@
                 this.activePage = temp.name;
             },
             removeTab: function (targetName) {
-                
+                var index = 0;
+                this.tabsInfo.map(function (cur, i) {
+                    if (cur.name == targetName) {
+                        index = i;
+                        return;
+                    }
+                });
+                this.tabsInfo.splice(index, 1);
+                if (this.activePage == targetName) {
+                    if (index >= this.tabsInfo.length) index--;
+                    if (index >= 0) this.activePage = this.tabsInfo[index].name;
+                }
             }
         }
     }).$mount("#app");
