@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../script/element-ui/index.css">
+    <link rel="stylesheet" href="../../style/layout.css">
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/element-ui/index.js"></script>
+    <script src="../../script/axios.min.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/dataAccess.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <el-table :data="dataList" v-loading="paging.loading" border stripe :header-cell-style="{ background:'#ecf1f5',color:'#495766' }">
+                <el-table-column label="序号" width="80">
+                    <template slot-scope="scope">
+                        <div v-text="(searchParam.page-1)*searchParam.rows+scope.$index+1"></div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="id" label="ID"></el-table-column>
+                <el-table-column prop="name" label="姓名"></el-table-column>
+                <el-table-column prop="age" label="年龄"></el-table-column>
+                <el-table-column prop="createTime" label="创建时间"></el-table-column>
+            </el-table>
+            <div style="text-align: center; margin-top: 10px;" v-if="paging.total>0">
+                <el-pagination layout="total,prev,pager,next,jumper" @current-change="pagingClick" :current-page="searchParam.page" :page-size="searchParam.rows"
+                    :total="paging.total">
+                </el-pagination>
+            </div>
+        </template>
+    </div>
+</body>
+
+<script>
+    new Vue({
+        data: function () {
+            return {
+                //查询的参数
+                searchParam: {
+                    page: 1,
+                    rows: 10,
+                },
+                //分页信息
+                paging: {
+                    loading: false,
+                    total: 0
+                },
+                dataList: [],
+            };
+        },
+        created: function () {
+            this.getData();
+        },
+        methods: {
+            pagingClick: function (val) {
+                this.searchParam.page = val;
+                this.getData();
+            },
+            getData: function () {
+                var _this = this;
+                if (!_this.paging.loading) {
+                    _this.paging.loading = true;
+                    setTimeout(function () { //可以去掉
+                        DataAccess.GetTableData(_this.searchParam).then(function (res) {
+                            var data = res.data;
+                            if (data.status.code == 1) {
+                                _this.dataList = data.data.List;
+                                _this.paging.total = data.data.total;
+                            } else {
+                                _this.$alert("error");
+                            }
+                        }).then(function () {
+                            _this.paging.loading = false;
+                        });
+                    }, 500);
+                }
+            }
+        }
+    }).$mount("#app");
+</script>
+
+</html>

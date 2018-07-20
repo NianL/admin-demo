@@ -10,12 +10,12 @@ Config.menuInfo = [{
         icon: "el-icon-document",
         url: "tables",
         children: [{
-                name: "简单的数据展示",
-                url: "template_page/table/common.html",
+                name: "简单展示",
+                url: "template_page/table/demo01.html",
             },
             {
-                name: "类型2",
-                url: "template_page/table/type2.html",
+                name: "增删改查",
+                url: "template_page/table/demo02.html",
             },
             {
                 name: "类型3",

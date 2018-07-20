@@ -1,0 +1,60 @@
+﻿{
+    "status": {
+        "code": 1,
+        "msg": "请求成功"
+    },
+    "data": {
+        "List": [{
+            "id": 1,
+            "name": "liun",
+            "age": "29",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 2,
+            "name": "zhangs",
+            "age": "99",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 3,
+            "name": "lisi",
+            "age": "10",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 4,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 5,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 6,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 7,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 8,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 9,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        },{
+            "id": 10,
+            "name": "wangw",
+            "age": "20",
+            "createTime": "2018-07-17 19:33:38"
+        }],
+        "total": 126
+    }
+}
