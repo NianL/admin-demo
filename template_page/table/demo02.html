@@ -10,6 +10,7 @@
     <script src="../../script/axios.min.js"></script>
     <script src="../../script/config.js"></script>
     <script src="../../script/dataAccess.js"></script>
+    <script src="../../script/common.js"></script>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
         <template>
             <div style="margin-bottom:10px;">
                 <div style="float:right;">
-                    <el-button icon="el-icon-plus">新增信息</el-button>
+                    <el-button icon="el-icon-plus" @click="addUser">新增信息</el-button>
                 </div>
                 <el-input v-model="searchParam.name" placeholder="请输入内容" style="width:200px;"></el-input>
                 <el-button type="primary" @click="searchData">搜索</el-button>
@@ -29,9 +30,8 @@
                         <div v-text="(searchParam.page-1)*searchParam.rows+scope.$index+1"></div>
                     </template>
                 </el-table-column>
-                <el-table-column prop="id" label="ID"></el-table-column>
                 <el-table-column prop="name" label="姓名"></el-table-column>
-                <el-table-column prop="age" label="年龄"></el-table-column>
+                <el-table-column prop="mobile" label="手机"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间"></el-table-column>
             </el-table>
             <div style="text-align: center; margin-top: 10px;" v-if="paging.total>0">
@@ -42,6 +42,9 @@
         </template>
     </div>
 </body>
+
+
+<script src="../../script/my_plugin/user.js"></script>
 
 <script>
     new Vue({
@@ -62,6 +65,7 @@
             };
         },
         created: function () {
+            // copy 查询参数对象
             this.searchParam_copy = JSON.parse(JSON.stringify(this.searchParam));
             this.getData();
         },
@@ -82,7 +86,9 @@
                 if (!_this.paging.loading) {
                     _this.paging.loading = true;
                     setTimeout(function () { //可以去掉
-                        DataAccess.GetTableData(_this.searchParam).then(function (res) {
+                        DataAccess.GetTableData(
+                            _this.searchParam
+                        ).then(function (res) {
                             var data = res.data;
                             if (data.status.code == 1) {
                                 _this.dataList = data.data.List;
@@ -95,6 +101,14 @@
                         });
                     }, 500);
                 }
+            },
+            addUser: function () {
+                var _this = this;
+                _this.$user.add({
+                    callback: function (res) {
+                        console.log(res);
+                    }
+                });
             }
         }
     }).$mount("#app");
