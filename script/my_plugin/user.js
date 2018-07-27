@@ -18,21 +18,21 @@ plugin_user.install = function (Vue, options) {
                     ',
             data: function () {
                 return {
-                    dialogVisible: true,
-                    submitLoading: false,
-                    type: "add",
-                    callback: null,
-                    userInfo: {
+                    dialogVisible: true, //框的显示隐藏
+                    submitLoading: false, //提交数据时候等待
+                    type: "add", //操作类型
+                    callback: null, //回调方法
+                    userInfo: { //表单需要的字段信息
                         name: "",
                         mobile: "",
                         createTime: "",
                     },
-                    formRules: {}
+                    formRules: {}, //表单的验证规则
                 };
             },
             watch: {
                 dialogVisible: function (n, o) {
-                    document.body.removeChild(coms);
+                    document.body.removeChild(coms); //移除弹出层
                 }
             },
             created: function () {
@@ -40,10 +40,10 @@ plugin_user.install = function (Vue, options) {
                 if (obj.type) this.type = obj.type;
                 if (obj.callback) this.callback = obj.callback; //回调方法
 
-                //init formRulesForm
+                //初始化表单验证规则
                 this.initFormRules();
 
-                //init edit info
+                //初始化操作方式
                 if (this.type != "add") {
                     this.userInfo = {
                         id: obj.item.id,
@@ -110,7 +110,7 @@ plugin_user.install = function (Vue, options) {
                     });
 
                     function request_then(res) {
-                        _this.callback && _this.callback(res.data);
+                        _this.callback && _this.callback(res);
                         _this.dialogVisible = false;
                     }
                 },
