@@ -10,6 +10,39 @@ String.prototype.replaceAll = function (s1, s2) {
 
 var Common = {};
 
+//ajax请求
+common.ajax = function (o) {
+    var action = o.action;
+    var sync = o.sync == null ? true : o.sync;
+    var url = o.url;
+    var data = o.data;
+    var success = o.success;
+
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (xmlhttp != null) {
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                success(xmlhttp);
+            }
+        };
+        xmlhttp.open(action, url, sync);
+        xmlhttp.setRequestHeader("Content-type", "application/json; charset=utf8");
+        action = action.toUpperCase();
+        if (action == "GET" || action == "DELETE") {
+            xmlhttp.send();
+        } else if (action == "POST" || action == "PUT") {
+            xmlhttp.send(JSON.stringify(data));
+        }
+    } else {
+        alert("Your browser does not support XMLHTTP.");
+    }
+}
+
 //时间戳
 Common.timestamp = function () {
     return Date.parse(new Date()) / 1000;
