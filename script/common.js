@@ -11,7 +11,7 @@ String.prototype.replaceAll = function (s1, s2) {
 var Common = {};
 
 //ajax请求
-common.ajax = function (o) {
+Common.ajax = function (o) {
     var action = o.action;
     var sync = o.sync == null ? true : o.sync;
     var url = o.url;

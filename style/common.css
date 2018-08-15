@@ -1,0 +1,25 @@
+/* 页面的一些通用的样式 */
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#app {
+    margin: 10px 5px;
+    width: calc(100% - 10px);
+}
+
+/* element */
+
+.el-scrollbar {
+    height: 100%;
+}
+
+.el-scrollbar__wrap {
+    overflow-x: hidden;
+}
