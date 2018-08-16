@@ -1,5 +1,8 @@
 var Config = {};
 
+//系统的名字
+Config.systemName = "xx管理系统";
+
 //菜单配置文件 只支持2级菜单
 //name 菜单名称
 //icon 图标样式，可以为空，参考element图标样式
@@ -16,17 +19,21 @@ Config.menuInfo = [{
             {
                 name: "增删改查",
                 url: "template_page/table/demo02.html",
-            },
-            {
-                name: "类型3",
-                url: "template_page/table/type3.html",
             }
         ]
     },
     {
-        name: "设置",
-        icon: "el-icon-setting",
-        url: "page/settings.html",
-        children: null
+        name: "表单相关",
+        icon: "el-icon-edit-outline",
+        url: "tables",
+        children: [{
+                name: "各种类型",
+                url: "template_page/form/demo01.html",
+            },
+            {
+                name: "输入验证",
+                url: "template_page/form/demo02.html",
+            }
+        ]
     }
 ];
