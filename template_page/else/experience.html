@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-size: 14px;
+            line-height: 24px;
+            color: #303133;
+        }
+
+        .item_n {
+            font-size: 12px;
+            color: #909399;
+            padding-top: 10px;
+        }
+
+        .line_m {
+            color: #909399;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+
+    <span>element：http://element-cn.eleme.io/#/zh-CN/component/</span>
+
+    <div class="item_n">Basic</div>
+    <div>
+        <b>Layout 布局:</b>
+        <span>通过基础的 24 分栏，创建页面布局(代码简洁使用方便，推荐使用)</span>
+    </div>
+
+    <div class="line_m">
+        <b>Container 布局容器:</b>
+        <span>不推荐使用，使用并不方便，自带有固定的样式，实际使用依然需要自己调整，如果会自己写css就自己写吧</span>
+    </div>
+
+    <div>
+        <b>Color 色彩:</b>
+        <span>主色(主题色)、辅助色(提示信息等)、中性色(文本和边框等)</span>
+    </div>
+
+    <div>
+        <b>Typography 字体:</b>
+        <span>没用过</span>
+    </div>
+
+    <div>
+        <b>Icon 图标:</b>
+        <span>可以单独使用，也能在button中配合使用，缺点就是图标太少了</span>
+    </div>
+
+    <div>
+        <b>Button 按钮:</b>
+        <span>一些常用的按钮，各种颜色，各种形状，统一美观，适合大部分场景使用</span>
+    </div>
+
+    <div class="item_n">From</div>
+    <div>
+        <b>Radio 单选框、Checkbox 多选框:</b>
+        <span>和原生的功能差不多</span>
+    </div>
+
+    <div>
+        <b>Input 输入框:</b>
+        <span>用法很多，但是在表单验证的时候自带的一些方法会有一些莫名的bug</span>
+    </div>
+
+    <div>
+        <b>InputNumber 计数器:</b>
+        <span>数字固定增加，但是不能限制数值，比如只允许输入5的倍数，也不能禁止输入</span>
+    </div>
+
+    <div>
+        <b>Select 选择器:</b>
+        <span>功能很多</span>
+    </div>
+
+    <div>
+        <b>Cascader 级联选择器:</b>
+        <span>带有级联关系的选择框</span>
+    </div>
+
+    <div>
+        <b>Switch 开关:</b>
+        <span>开关切换</span>
+    </div>
+
+    <div>
+        <b>Slider 滑块:</b>
+        <span>设置百分比或者数值等使用的，左右拖动类似音量选择</span>
+    </div>
+
+    <div>
+        <b>TimePicker 时间选择器、DatePicker 日期选择器、DateTimePicker 日期时间选择器:</b>
+        <span>推荐</span>
+    </div>
+
+    <div>
+        <b>Upload 上传:</b>
+        <span>很好用，可以用自带的样式，也可以根据钩子返回信息自己定义上传样式和进度显示</span>
+    </div>
+
+    <div>
+        <b>Rate 评分:</b>
+        <span>选择小星星的评分组件</span>
+    </div>
+
+    <div>
+        <b>ColorPicker 颜色选择器:</b>
+        <span>颜色选择组件</span>
+    </div>
+
+    <div>
+        <b>Transfer 穿梭框:</b>
+        <span>左右移动数据</span>
+    </div>
+
+    <div>
+        <b>Form 表单:</b>
+        <span>样式不错，但是验证方面坑很多，建议用自己定义的方法(validator)</span>
+    </div>
+
+    <div class="item_n">Data</div>
+    <div>
+        <b>Table 表格:</b>
+        <span>数据列表展示</span>
+    </div>
+
+    <div>
+        <b>Tag 标签:</b>
+        <span>用于标记和选择</span>
+    </div>
+
+    <div>
+        <b>Progress 进度条:</b>
+        <span>-</span>
+    </div>
+
+    <div>
+        <b>Tree 树形控件:</b>
+        <span>树形控件</span>
+    </div>
+
+    <div>
+        <b>Pagination 分页:</b>
+        <span>分页组件</span>
+    </div>
+
+    <div>
+        <b>Badge 标记:</b>
+        <span>出现在按钮旁边的数字</span>
+    </div>
+
+    <div class="item_n">Notice</div>
+    <div>
+        <b>Alert 警告:</b>
+        <span>做为页面显示使用的，放在某个dom显示的，不是弹出层</span>
+    </div>
+
+    <div>
+        <b>Loading 加载:</b>
+        <span>使用方便，在ie浏览器会存在一直显示的问题，分析原因是渲染问题，设置值为true以后不能马上设置为false(接口反应很快的时候)，解决方法加一点延迟或者nextTick</span>
+    </div>
+
+    <div>
+        <b>Message 消息提示:</b>
+        <span>页面顶部弹出消息，自动关闭的</span>
+    </div>
+
+    <div>
+        <b>MessageBox 弹框:</b>
+        <span>可以作用提示框，确认框</span>
+    </div>
+
+    <div>
+        <b>Notification 通知:</b>
+        <span>页面角落出现的提示框</span>
+    </div>
+
+    <div class="item_n">Navigation</div>
+    <div>
+        <b>NavMenu 导航菜单:</b>
+        <span>网站的导航菜单</span>
+    </div>
+
+    <div>
+        <b>Tabs 标签页:</b>
+        <span>分隔页面多个页签</span>
+    </div>
+
+    <div>
+        <b>Breadcrumb 面包屑:</b>
+        <span>显示当前页面的路径，快速返回之前的任意页面</span>
+    </div>
+
+    <div>
+        <b>Dropdown 下拉菜单:</b>
+        <span>下拉展开的菜单</span>
+    </div>
+
+    <div>
+        <b>Steps 步骤条:</b>
+        <span>步骤条</span>
+    </div>
+
+    <div class="item_n">Others</div>
+    <div>
+        <b>Dialog 对话框:</b>
+        <span>可以嵌套组件等复杂内容的弹出层</span>
+    </div>
+
+    <div>
+        <b>Tooltip 文字提示:</b>
+        <span>鼠标放上去显示的提示信息</span>
+    </div>
+
+    <div>
+        <b>Popover 弹出框:</b>
+        <span>和Tooltip类似，但是里面内容可以是组件等复杂的内容</span>
+    </div>
+
+    <div>
+        <b>Card 卡片:</b>
+        <span>将内容显示在一块区域，一个小卡片上，看起来就是一个小模块</span>
+    </div>
+
+    <div>
+        <b>Carousel 走马灯:</b>
+        <span>图片轮播</span>
+    </div>
+
+    <div>
+        <b>Collapse 折叠面板:</b>
+        <span>折叠显示内容，手风琴一样的</span>
+    </div>
+
+</body>
+
+</html>

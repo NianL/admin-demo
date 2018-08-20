@@ -9,31 +9,36 @@ Config.systemName = "xx管理系统";
 //url 链接地址，如有有子菜单可以只定义一个key
 //children 子节点
 Config.menuInfo = [{
-        name: "表格数据",
-        icon: "el-icon-document",
-        url: "tables",
-        children: [{
-                name: "简单展示",
-                url: "template_page/table/demo01.html",
-            },
-            {
-                name: "增删改查",
-                url: "template_page/table/demo02.html",
-            }
-        ]
-    },
-    {
-        name: "表单相关",
-        icon: "el-icon-edit-outline",
-        url: "tables",
-        children: [{
-                name: "各种类型",
-                url: "template_page/form/demo01.html",
-            },
-            {
-                name: "输入验证",
-                url: "template_page/form/demo02.html",
-            }
-        ]
-    }
-];
+    name: "表格数据",
+    icon: "el-icon-document",
+    url: "table",
+    children: [{
+        name: "简单展示",
+        url: "template_page/table/demo01.html",
+    }, {
+        name: "增删改查",
+        url: "template_page/table/demo02.html",
+    }]
+}, {
+    name: "表单相关",
+    icon: "el-icon-edit-outline",
+    url: "form",
+    children: [{
+        name: "各种类型",
+        url: "template_page/form/demo01.html",
+    }, {
+        name: "输入验证",
+        url: "template_page/form/demo02.html",
+    }]
+}, {
+    name: "一些经验",
+    icon: "el-icon-more",
+    url: "else",
+    children: [{
+        name: "使用心得",
+        url: "template_page/else/experience.html",
+    }, {
+        name: "通用的",
+        url: "template_page/else/common.html",
+    }]
+}];

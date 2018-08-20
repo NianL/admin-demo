@@ -25,7 +25,7 @@
                 <el-button type="primary" @click="searchData">搜索</el-button>
                 <el-button @click="resetData">重置</el-button>
             </div>
-            <el-table :data="dataList" @selection-change="handleSelectionChange" v-loading="paging.loading" border stripe :header-cell-style="{ background:'#ecf1f5',color:'#495766' }">
+            <el-table :data="dataList" @selection-change="handleSelectionChange" v-loading="paging.loading">
                 <el-table-column type="selection" width="40">
                 </el-table-column>
                 <el-table-column label="序号" width="80">
@@ -123,16 +123,20 @@
 
                 },
                 addUser: function () {
+                    var _this = this;
                     this.$user.add({
                         callback: function (res) {
+                            _this.$message.success('添加成功!');
                             console.log(res);
                         }
                     });
                 },
                 editUser: function (item) {
+                    var _this = this;
                     this.$user.edit({
                         item: item,
                         callback: function (res) {
+                            _this.$message.success('编辑成功!');
                             console.log(res);
                         }
                     });
@@ -140,12 +144,13 @@
                 delUser: function (item) {
                     var _this = this;
                     this.$confirm('确认是否删除信息?', '提示', {
+                        type: "warning",
                         confirmButtonText: '确定',
                         cancelButtonText: '取消'
                     }).then(function () {
                         _this.$message.success('删除成功!');
                     }).catch(function () {
-                        _this.$message.info('删除成功!');
+                        _this.$message.info('取消删除!');
                     });
                 }
             }

@@ -458,3 +458,53 @@ Common.inherit = function (p) {
     f.prototype = p;
     return new f();
 };
+
+//目录树根据根据一个节点获取所有父节点的信息
+Common.getNodesByItem = function (menuDate, item) {
+    var data = menuDate;
+    return getNodes(item);
+
+    function getNodes(id) {
+        var r = [];
+        var i = 0;
+        var b = true;
+        for (var n = 0; n < data.length; n++) {
+            if (!b) break;
+            var t = data[n];
+            i = 0;
+            r = [];
+            r[i] = {
+                itemID: t.itemID,
+                name: t.name
+            };
+            if (t.itemID == id) {
+                b = !b;
+                break;
+            }
+            getChildList(t.childList);
+        }
+        if (b) r = [];
+        return r;
+
+        function getChildList(tt) {
+            if (tt && tt.__proto__.constructor == Array) {
+                i++;
+                for (var n = 0; n < tt.length; n++) {
+                    if (!b) break;
+                    var t = tt[n];
+                    r.splice(i, r.length - i);
+                    r[i] = {
+                        itemID: t.itemID,
+                        name: t.name
+                    };
+                    if (t.itemID == id) {
+                        b = !b;
+                        return;
+                    }
+                    getChildList(t.childList);
+                }
+                i--;
+            }
+        }
+    }
+};
