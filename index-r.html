@@ -103,10 +103,23 @@
             background: #343f55;
         }
 
+        .main-left.folding {
+            width: 64px;
+        }
+
+        .main-left .menu-operate {
+            text-align: right;
+            padding-right: 5px;
+        }
+
         .main-right {
             width: calc(100% - 200px);
             height: 100%;
             float: left;
+        }
+
+        .main-right.folding {
+            width: calc(100% - 64px);
         }
     </style>
 </head>
@@ -122,8 +135,13 @@
                 </div>
             </div>
             <div class="main">
-                <el-scrollbar class="main-left">
-                    <el-menu :default-active="activePage" background-color="#343f55" text-color="#fff">
+                <el-scrollbar class="main-left" :class="{folding:isCollapse}">
+                    <div class="menu-operate">
+                        <el-button v-show="isCollapse" type="text" icon="el-icon-d-arrow-right" @click="isCollapse=false"></el-button>
+                        <el-button v-show="!isCollapse" type="text" icon="el-icon-d-arrow-left" @click="isCollapse=true"></el-button>
+                    </div>
+
+                    <el-menu :default-active="activePage" :collapse-transition="false" :collapse="isCollapse" background-color="#343f55" text-color="#fff">
                         <template v-for="(item,index) in menuInfo">
                             <template v-if="item.children == null || item.children.length == 0">
                                 <el-menu-item :index="item.name" @click="clickMenu(item)">
@@ -146,7 +164,7 @@
                         </template>
                     </el-menu>
                 </el-scrollbar>
-                <div class="main-right">
+                <div class="main-right" :class="{folding:isCollapse}">
                     <iframe v-if="activeUrl!=''" :src="activeUrl" style="width: 100%; height: 100%; overflow: auto;" frameborder="0"></iframe>
                     <h1 v-else style="padding:0 10px;">欢迎使用！</h1>
                 </div>
@@ -162,7 +180,8 @@
                     systemName: Config.systemName,
                     activePage: "",
                     activeUrl: "",
-                    menuInfo: Config.menuInfo
+                    menuInfo: Config.menuInfo,
+                    isCollapse: false
                 };
             },
             watch: {
