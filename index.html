@@ -135,7 +135,7 @@
             </div>
             <div class="main">
                 <el-scrollbar class="main-left" :class="{folding:isCollapse}">
-                    <div class="menu-operate">
+                    <div class="menu-operate" v-if="menuFolding.buttonShow">
                         <el-button v-show="isCollapse" type="text" icon="el-icon-d-arrow-right" @click="isCollapse=false"></el-button>
                         <el-button v-show="!isCollapse" type="text" icon="el-icon-d-arrow-left" @click="isCollapse=true"></el-button>
                     </div>
@@ -184,12 +184,14 @@
                     systemName: Config.systemName,
                     activePage: "",
                     menuInfo: Config.menuInfo,
+                    menuFolding: Config.menuFolding,
                     tabsInfo: [],
                     isCollapse: false
                 };
             },
             created: function () {
                 document.title = this.systemName;
+                this.isCollapse = this.menuFolding.defaultStatus;
             },
             methods: {
                 clickMenu: function (item) {

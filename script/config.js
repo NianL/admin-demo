@@ -3,6 +3,12 @@ var Config = {};
 //系统的名字
 Config.systemName = "xx管理系统";
 
+//菜单折叠按钮
+Config.menuFolding = {
+    buttonShow: false, //是否显示按钮
+    defaultStatus: false, //默认是否折叠
+};
+
 //菜单配置文件 只支持2级菜单
 //name 菜单名称
 //icon 图标样式，可以为空，参考element图标样式
@@ -22,13 +28,13 @@ Config.menuInfo = [{
 }, {
     name: "表单相关",
     icon: "el-icon-edit-outline",
-    url: "form",
+    url: "from",
     children: [{
         name: "各种类型",
-        url: "template_page/form/demo01.html",
+        url: "template_page/from/demo01.html",
     }, {
         name: "输入验证",
-        url: "template_page/form/demo02.html",
+        url: "template_page/from/demo02.html",
     }]
 }, {
     name: "一些经验",
