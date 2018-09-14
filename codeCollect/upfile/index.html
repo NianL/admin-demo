@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="../../script/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<input v-show="false" type="file" ref="inputFile" />
+		<button @click="upFile" @focus="onFocus">上传</button>
+
+		<div>{{ msg }}</div>
+	</div>
+
+	<script>
+		new Vue({
+			el: "#app",
+			data: {
+				isUpload: false, //是否是上传
+				msg: "",
+			},
+			methods: {
+				onFocus: function (e) {
+					var _this = this;
+					this.isUpload = !this.isUpload;
+					if (this.isUpload) {
+						this.msg = "正在选择文件...";
+					} else {
+						e.currentTarget.blur();
+						setTimeout(function () {
+							var files = _this.$refs.inputFile.files;
+							if (files.length > 0) {
+								_this.msg = "选择文件：" + files[0].name;
+							} else {
+								_this.msg = "没有选择文件";
+							}
+						}, 100);
+					}
+				},
+				upFile: function () {
+					this.$refs.inputFile.click();
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="Expires" content="0">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<title></title>
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="active"></div>
+	<div style="position: absolute; top: 50px; left: 50px; width: 300px; height: 300px; background: #ccc; border-radius: 150px;">
+		<div id="md" style="position: absolute; top:0px; left:0px; width: 100px; height: 100px; background: #ddd; border-radius: 50px;"></div>
+	</div>
+
+	<script>
+		var moveDirection = function (id, callback) {
+			var el = document.querySelector(id);
+			var _this = this;
+			var active = null;
+			var dishSize = parseInt(el.parentNode.clientWidth);
+			var btnSize = parseInt(el.clientWidth);
+			var defaultSite = (dishSize - btnSize) / 2; //初始位置
+			var moveTimeOut = null;
+			el.style.left = defaultSite + "px";
+			el.style.top = defaultSite + "px";
+
+			this.star = function (x) {
+				_this.dLeft = parseInt(el.style.left);
+				_this.dTop = parseInt(el.style.top);
+				_this.cX = x.clientX;
+				_this.cY = x.clientY;
+				active = "";
+			};
+
+			this.move = function (x) {
+				if (active != null) {
+					_this.mLeft = _this.dLeft + x.clientX - _this.cX;
+					_this.mTop = _this.dTop + x.clientY - _this.cY;
+					if (Math.abs(_this.mLeft - defaultSite) >= Math.abs(_this.mTop - defaultSite)) {
+						active = "X"; //x轴移动
+					} else {
+						active = "Y"; //Y轴移动
+					}
+					//边界值判断
+					if (_this.mLeft <= 0) _this.mLeft = 0;
+					if (_this.mLeft >= (dishSize - btnSize)) _this.mLeft = dishSize - btnSize;
+					if (_this.mTop <= 0) _this.mTop = 0;
+					if (_this.mTop >= (dishSize - btnSize)) _this.mTop = dishSize - btnSize;
+					//根据操作移动按钮
+					if (active == "X") {
+						el.style.left = _this.mLeft + "px";
+						el.style.top = defaultSite + "px";
+					} else {
+						el.style.left = defaultSite + "px";
+						el.style.top = _this.mTop + "px";
+					}
+
+					//按钮操作判断
+					var borderNumber = 20;
+					if (_this.mLeft <= borderNumber ||
+						_this.mLeft >= (dishSize - btnSize - borderNumber) ||
+						_this.mTop <= borderNumber ||
+						_this.mTop >= (dishSize - btnSize - borderNumber)) {
+						if (moveTimeOut == null) {
+							moveTimeOut = setInterval(function () {
+								_this.callback();
+							}, 50);
+						}
+					} else {
+						clearInterval(moveTimeOut);
+						moveTimeOut = null;
+					}
+				}
+			};
+
+			this.end = function () {
+				if (active != null) {
+					//_this.callback(); //收起按钮返回事件
+					active = null;
+					clearInterval(moveTimeOut);
+					moveTimeOut = null;
+					el.style.left = defaultSite + "px";
+					el.style.top = defaultSite + "px";
+				}
+			};
+
+			this.callback = function () {
+				if (callback) {
+					if (active == "X") {
+						if (_this.mLeft - defaultSite < 0) {
+							callback("left");
+						} else {
+							callback("right");
+						}
+					} else {
+						if (_this.mTop - defaultSite < 0) {
+							callback("top");
+						} else {
+							callback("bottom");
+						}
+					}
+				}
+			};
+
+			el.addEventListener("touchstart", function (e) {
+				var x = e.changedTouches[0];
+				_this.star(x);
+			});
+			el.addEventListener("touchmove", function (e) {
+				var x = e.changedTouches[0];
+				_this.move(x);
+				e.preventDefault();
+				return false;
+			});
+			el.addEventListener("touchend", function (e) {
+				_this.end();
+			});
+
+			el.addEventListener("mousedown", function (e) {
+				var x = e ? e : window.event;
+				if (!window.captureEvents) {
+					this.setCapture();
+				} //事件捕获仅支持ie
+				_this.star(x);
+				var _mousemove = function (e) {
+					var x = e ? e : window.event;
+					_this.move(x);
+					e.preventDefault();
+					return false;
+				}
+				var _mouseup = function (e) {
+					if (!window.captureEvents) {
+						this.releaseCapture();
+					} //事件捕获仅支持ie
+					_this.end();
+
+					document.body.removeEventListener("mousemove", _mousemove);
+					document.body.removeEventListener("mouseup", _mouseup);
+				}
+				document.body.addEventListener("mousemove", _mousemove);
+				document.body.addEventListener("mouseup", _mouseup);
+			});
+		};
+
+		new moveDirection("#md", function (r) {
+			console.log(r);
+			document.querySelector("#active").innerHTML = r;
+		});
+	</script>
+</body>
+
+</html>

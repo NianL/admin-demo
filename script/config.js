@@ -47,4 +47,20 @@ Config.menuInfo = [{
         name: "通用的",
         url: "template_page/else/common.html",
     }]
+}, {
+    name: "代码收集",
+    icon: "el-icon-edit-outline",
+    url: "codeCollect",
+    children: [{
+        name: "简易方向键盘",
+        url: "codeCollect/direction/",
+    },{
+        name: "上传文件",
+        url: "codeCollect/upfile/",
+    },{
+        name: "动画效果",
+        url: "codeCollect/transition/",
+    }]
 }];
+
+
