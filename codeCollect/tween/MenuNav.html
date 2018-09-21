@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/tween.js"></script>
+    <link rel="stylesheet" href="../../script/my_component/MenuNav.css" />
+</head>
+
+<body>
+    <div id="app">
+        <l-menu-nav :data="menuData" @menu-click="menuClick"></l-menu-nav>
+        <br />
+        <l-menu-nav default-text="html" :data="menuData" @menu-click="menuClick"></l-menu-nav>
+        <br />
+        <l-menu-nav :default-text="menuData2[1].text" :data="menuData2" @menu-click="menuClick"></l-menu-nav>
+        <br />
+        <l-menu-nav default-value="联系我们" :data="menuData2" @menu-click="menuClick"></l-menu-nav>
+        <br />
+        <pre>
+    :default-text        选填        string          对应data中的text，错误或者未填写默认选中第一个
+    :default-value       选填        string          对应data中的value，同default-text，二者选择一个设置即可
+    :data                必填        Array           格式 [{text:"",value:""}]
+    @menu-click          必填        function        钩子，菜单选中以后返回信息
+        </pre>
+    </div>
+
+    <script src="../../script/my_component/MenuNav.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                menuData: [{
+                    text: "JavaScript",
+                    value: "javascript.html"
+                }, {
+                    text: "css",
+                    value: "css.html"
+                }, {
+                    text: "html",
+                    value: "html.html"
+                }],
+                menuData2: [{
+                    text: "首页",
+                    value: "home.html"
+                }, {
+                    text: "个人文章",
+                    value: "article.html"
+                }, {
+                    text: "技术专区",
+                    value: "technology.html"
+                }, {
+                    text: "联系我们",
+                    value: "about.html"
+                }],
+            },
+            methods: {
+                menuClick: function (item) {
+                    console.log(JSON.stringify(item));
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

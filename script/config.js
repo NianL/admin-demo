@@ -37,7 +37,7 @@ Config.menuInfo = [{
         url: "template_page/from/demo02.html",
     }]
 }, {
-    name: "一些经验",
+    name: "element使用后",
     icon: "el-icon-more",
     url: "else",
     children: [{
@@ -53,14 +53,20 @@ Config.menuInfo = [{
     url: "codeCollect",
     children: [{
         name: "简易方向键盘",
-        url: "codeCollect/direction/",
-    },{
+        url: "codeCollect/direction/index.html",
+    }, {
         name: "上传文件",
-        url: "codeCollect/upfile/",
-    },{
-        name: "动画效果",
-        url: "codeCollect/transition/",
+        url: "codeCollect/upfile/index.html",
+    }]
+}, {
+    name: "过渡动画",
+    icon: "el-icon-time",
+    url: "tween",
+    children: [{
+        name: "简单demo",
+        url: "codeCollect/tween/simple.html",
+    }, {
+        name: "导航菜单",
+        url: "codeCollect/tween/MenuNav.html",
     }]
 }];
-
-
