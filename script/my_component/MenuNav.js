@@ -33,7 +33,7 @@ Vue.component("l-menu-nav", {
     },
     watch: {
         current: function (n, o) {
-            if (o != null) {
+            if (n != null && o != null) {
                 var lis = this.$refs.menuNav.querySelectorAll("li");
                 this.lineStatus = this.getSiteInfo(lis[o]);
                 this.menuAnimate(lis[n]);
@@ -93,8 +93,6 @@ Vue.component("l-menu-nav", {
             }, 300);
         },
         tween: function (startObj, endObj, callback) {
-            var _this = this;
-
             function animate() {
                 if (TWEEN.update()) {
                     requestAnimationFrame(animate);
