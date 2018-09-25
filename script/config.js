@@ -25,18 +25,20 @@ Config.menuInfo = [{
         name: "增删改查",
         url: "template_page/table/demo02.html",
     }]
-}, {
-    name: "表单相关",
-    icon: "el-icon-edit-outline",
-    url: "from",
-    children: [{
-        name: "各种类型",
-        url: "template_page/from/demo01.html",
-    }, {
-        name: "输入验证",
-        url: "template_page/from/demo02.html",
-    }]
-}, {
+},
+//  {
+//     name: "表单相关",
+//     icon: "el-icon-edit-outline",
+//     url: "from",
+//     children: [{
+//         name: "各种类型",
+//         url: "template_page/from/demo01.html",
+//     }, {
+//         name: "输入验证",
+//         url: "template_page/from/demo02.html",
+//     }]
+// }, 
+{
     name: "element使用后",
     icon: "el-icon-more",
     url: "else",
@@ -57,6 +59,9 @@ Config.menuInfo = [{
     }, {
         name: "上传文件",
         url: "codeCollect/upfile/index.html",
+    }, {
+        name: "动态组件",
+        url: "codeCollect/component/index.html",
     }]
 }, {
     name: "过渡动画",

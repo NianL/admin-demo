@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="../../script/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="name='component-1'">component-1</button>
+        <button @click="name='component-2'">component-2</button>
+        <br />
+        <l-component :name="name"></l-component>
+    </div>
+
+
+    <script>
+        Vue.component('l-component', {
+            props: ['name'],
+            render: function (h) { // h 为 createElement 函数，接受三个参数
+                // tag, data, children
+                return h(this.name);
+            },
+        });
+
+        Vue.component("component-1", {
+            template: '<div>\
+                    <p>输入文字试试：{{ msg }}</p>\
+                    <input v-model="msg" />\
+                <div>',
+            data: function () {
+                return {
+                    msg: ""
+                }
+            }
+        });
+        Vue.component("component-2", {
+            template: '<p>\
+                    <button @click="hello">hello vue!</button>\
+                <p>',
+            methods: {
+                hello: function () {
+                    alert("hello vue!");
+                }
+            }
+        });
+    </script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                name: "component-1"
+            }
+        });
+    </script>
+</body>
+
+</html>
