@@ -11,8 +11,7 @@
 
 <body>
     <div id="app">
-        <l-menu-nav :data="menuData" @menu-click="menuClick"></l-menu-nav>
-        <br />
+
         <l-menu-nav default-text="html" :data="menuData" @menu-click="menuClick"></l-menu-nav>
         <br />
         <l-menu-nav :default-text="menuData2[1].text" :data="menuData2" @menu-click="menuClick"></l-menu-nav>
@@ -21,8 +20,8 @@
         <br />
 
         <pre>
-    :default-text        选填        string          对应data中的text，错误或者未填写默认选中第一个
-    :default-value       选填        string          对应data中的value，同default-text，二者选择一个设置即可
+    :default-text        选填        string          对应data中的text，同default-value 必选一项
+    :default-value       选填        string          对应data中的value，同default-text 必选一项
     :data                必填        Array           格式 [{text:"",value:""}]
     @menu-click          必填        function        钩子，菜单选中以后返回信息
         </pre>

@@ -28,16 +28,25 @@ Vue.component("l-menu-nav", {
             lineStatus: {
                 width: 0,
                 left: 0
-            }
+            },
+            loadingAnimate: false
         };
     },
     watch: {
         current: function (n, o) {
-            if (n != null && o != null) {
-                var lis = this.$refs.menuNav.querySelectorAll("li");
+            var lis = this.$refs.menuNav.querySelectorAll("li");
+            if (n != null && o != null && this.loadingAnimate) {
                 this.lineStatus = this.getSiteInfo(lis[o]);
                 this.menuAnimate(lis[n]);
+            } else {
+                this.lineStatus = this.getSiteInfo(lis[n]);
             }
+        },
+        defaultText: function () {
+            this.setDefaultItem();
+        },
+        defaultValue: function () {
+            this.setDefaultItem();
         }
     },
     computed: {
@@ -49,24 +58,22 @@ Vue.component("l-menu-nav", {
         }
     },
     created: function () {
-        var desaultItem = this.defaultText || this.defaultValue;
-        if (desaultItem) {
-            for (var i = 0; i < this.data.length; i++) {
-                if (this.data[i].text.toLowerCase() == desaultItem.toLowerCase() ||
-                    this.data[i].value.toLowerCase() == desaultItem.toLowerCase()
-                ) {
-                    this.current = i;
-                    break;
-                }
-            }
-        } else {
-            this.current = 0;
-        }
-    },
-    mounted: function () {
-        this.lineStatus = this.getSiteInfo(this.$refs.menuNav.querySelector(".select"));
+        this.setDefaultItem();
     },
     methods: {
+        setDefaultItem: function () {
+            var desaultItem = this.defaultText || this.defaultValue;
+            if (desaultItem) {
+                for (var i = 0; i < this.data.length; i++) {
+                    if (this.data[i].text.toLowerCase() == desaultItem.toLowerCase() ||
+                        this.data[i].value.toLowerCase() == desaultItem.toLowerCase()
+                    ) {
+                        this.current = i;
+                        break;
+                    }
+                }
+            }
+        },
         getSiteInfo: function (e) {
             return {
                 width: e.clientWidth,
@@ -75,6 +82,7 @@ Vue.component("l-menu-nav", {
         },
         menuAnimate: function (e) {
             var _this = this;
+            this.loadingAnimate = true;
             this.tween(this.lineStatus, this.getSiteInfo(e), function (active) {
                 _this.lineStatus = {
                     width: active.width,

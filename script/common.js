@@ -76,13 +76,23 @@ Common.importStyle = function (url) {
     linkNode.setAttribute("href", url);
     document.head.appendChild(linkNode);
 };
-//动态载入Script
-Common.importScript = function (url) {
-    var scriptNode = document.createElement("script");
-    scriptNode.setAttribute("type", "text/javascript");
-    scriptNode.setAttribute("src", url);
-    document.head.appendChild(scriptNode);
-};
+
+//动态加载Script
+Common.importScript = function (url, callback) {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    if (typeof (callback) == 'function') {
+        script.onload = script.onreadystatechange = function () {
+            if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                callback();
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+    }
+    head.appendChild(script);
+}
 
 //是否是数字
 Common.isNumber = function (n) {
