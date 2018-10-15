@@ -62,6 +62,12 @@ Config.menuInfo = [{
     }, {
         name: "动态组件",
         url: "codeCollect/component/index.html",
+    }, {
+        name: "瀑布分页PC",
+        url: "codeCollect/scroll/pc.html",
+    }, {
+        name: "瀑布分页mobile",
+        url: "codeCollect/scroll/mobile.html",
     }]
 }, {
     name: "过渡动画",
