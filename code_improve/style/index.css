@@ -1,0 +1,113 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    text-decoration: none;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.el-scrollbar {
+    height: 100%;
+}
+
+.el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+
+#app {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    height: 60px;
+    overflow: hidden;
+    background-color: #494949;
+    padding: 0px 10px;
+    color: #fff;
+}
+
+.header h3 {
+    margin: 0px;
+    display: inline;
+    font-size: 28px;
+    line-height: 60px;
+}
+
+.header .operate {
+    font-size: 14px;
+    margin-top: 25px;
+    float: right;
+}
+
+.header .operate a {
+    color: #fff;
+}
+
+.main {
+    height: calc(100% - 60px);
+    width: 100%;
+}
+
+.main .el-menu {
+    border-right: none;
+}
+
+.main .el-tabs__header {
+    margin: 0px;
+}
+
+.main .el-tabs__item {
+    height: 32px;
+    line-height: 32px;
+}
+
+.main .el-tabs__content {
+    height: 100%;
+}
+
+.main .el-tabs__content .el-tab-pane {
+    height: calc(100% - 32px);
+}
+
+.main:after {
+    content: "";
+    display: block;
+    clear: both;
+    height: 0px;
+    overflow: hidden;
+}
+
+.main-left {
+    width: 200px;
+    height: 100%;
+    float: left;
+    background: #343f55;
+}
+
+.main-left.folding {
+    width: 64px;
+}
+
+.main-left .menu-operate {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.main-right {
+    width: calc(100% - 200px);
+    height: 100%;
+    float: left;
+}
+
+.main-right.folding {
+    width: calc(100% - 64px);
+}

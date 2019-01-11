@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="reference/element-ui/index.css" />
+    <link rel="stylesheet" href="style/index.css" />
+    <script src="reference/vue.js"></script>
+    <script src="reference/vue-router.js"></script>
+    <script src="reference/element-ui/index.js"></script>
+    <script src="reference/axios.min.js"></script>
+    <script src="script/config.js"></script>
+    <script src="script/dataAccess.js"></script>
+    <script src="script/common.js"></script>
+</head>
+
+<body>
+
+    <div id="app" v-cloak>
+        <div class="header">
+            <h3>{{ systemName }}</h3>
+            <div class="operate">
+                <span v-show="adminName!=''">{{ adminName }} , 欢迎您！</span>
+                <el-button type="text" @click="logout()">退出</el-button>
+            </div>
+        </div>
+        <div class="main">
+            <el-scrollbar class="main-left" :class="{folding:isCollapse}">
+                <div class="menu-operate" v-if="menuInfo.buttonShow">
+                    <el-button v-show="isCollapse" type="text" icon="el-icon-d-arrow-right" @click="isCollapse=false"></el-button>
+                    <el-button v-show="!isCollapse" type="text" icon="el-icon-d-arrow-left" @click="isCollapse=true"></el-button>
+                </div>
+
+                <el-menu :default-active="activePage" :collapse-transition="false" :collapse="isCollapse"
+                    background-color="#343f55" text-color="#fff">
+                    <template v-for="(item,index) in menuInfo.data">
+                        <template v-if="item.children == null || item.children.length == 0">
+                            <el-menu-item :index="item.name" @click="clickMenu(item)">
+                                <i :class="item.icon"></i>
+                                <span slot="title" v-text="item.name"></span>
+                            </el-menu-item>
+                        </template>
+                        <template v-else>
+                            <el-submenu :index="item.name">
+                                <template slot="title">
+                                    <i :class="item.icon"></i>
+                                    <span v-text="item.name"></span>
+                                </template>
+                                <el-menu-item :index="chil.name" @click="clickMenu(chil)" :key="index" v-for="(chil,index) in item.children">
+                                    <i :class="chil.icon"></i>
+                                    <span v-text="chil.name"></span>
+                                </el-menu-item>
+                            </el-submenu>
+                        </template>
+                    </template>
+                </el-menu>
+            </el-scrollbar>
+            <div class="main-right" :class="{folding:isCollapse}">
+                <iframe v-if="activeUrl!=''" :src="activeUrl" style="width: 100%; height: 100%; overflow: auto;"
+                    frameborder="0"></iframe>
+                <h1 v-else style="padding:0 10px;">欢迎使用！</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //by liun
+        new Vue({
+            router: new VueRouter(),
+            data: function () {
+                return {
+                    systemName: Config.systemName,
+                    activePage: Config.menuInfo.defaultName,
+                    activeUrl: Config.menuInfo.defaultUrl,
+                    menuInfo: Config.menuInfo,
+                    isCollapse: false,
+                    adminName: "",
+                };
+            },
+            watch: {
+                $route: function (to, from) {
+                    this.loadPage();
+                },
+            },
+            created: function () {
+                document.title = this.systemName;
+                this.isCollapse = this.menuInfo.defaultStatus;
+                this.loadPage();
+
+                var _this = this;
+                if (location.host.indexOf(".zhizaoyun.com") != -1) {
+                    ChildAdmin.Business.getUserInfo(function (name) {
+                        _this.adminName = name;
+                        Common.setCookie("bgUserName", name, 1);
+                    });
+                }
+            },
+            methods: {
+                logout: function () {
+                    console.log("logout");
+                },
+                loadPage: function () {
+                    var path = this.$route.path.substr(1);
+                    if (path == "") {
+                        return;
+                    }
+                    var activeItem = null;
+                    for (var i = 0; i < this.menuInfo.length; i++) {
+                        var p = this.menuInfo[i];
+                        if (p.url == path) {
+                            activeItem = p;
+                        } else if (p.children && p.children.length > 0) {
+                            for (var j = 0; j < p.children.length; j++) {
+                                var c = p.children[j];
+                                if (c.url == path) {
+                                    activeItem = c;
+                                }
+                            }
+                        }
+                        if (activeItem) break;
+                    }
+                    if (activeItem) {
+                        this.activePage = activeItem.name;
+                        this.activeUrl = activeItem.url;
+                    }
+                },
+                clickMenu: function (item) {
+                    this.$router.push({
+                        path: "/" + item.url
+                    });
+                },
+            }
+        }).$mount("#app");
+    </script>
+
+</body>
+
+</html>
